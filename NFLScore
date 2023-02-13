@@ -1,53 +1,32 @@
 #include <stdio.h>
  
-// Returns number of ways to reach score n
-int count(int n)
-{
-    // table[i] will store count of solutions for
-    // value i.
-    int table[n + 1], i;
- 
-   
-    for (int i = 0; i < n + 1; i++) {
-        table[i] = 0;
+int main() {
+    int i, TD2, TDFG, TD, FG, Safety;
+    while (1) {
+        printf("\nEnter 0 or 1 to STOP: ");
+        printf("\nEnter the NFL score: ");
+        scanf("%d", & i);
+        if (i > 1) {
+            printf("\nPossible combinations of scoring plays: \n");
+            int count = 0;
+            for (TD2 = 0; TD2 <= i; TD2++) {
+                for (TDFG = 0; TDFG <= i; TDFG++) {
+                    for (TD = 0; TD <= i; TD++) {
+                        for (FG = 0; FG <= i; FG++) {
+                            for (Safety = 0; Safety <= i; Safety++) {
+                                if ((8 * TD2) + (7 * TDFG) + (6 * TD) + (3 * FG) + (2 * Safety) == i) {
+                                    printf("\n%d TD + 2pt | %d TD + FG | %d TD | %d 3pt FG | %d Safety", TD2, TDFG, TD, FG, Safety);
+                                    count++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            printf("\n\nTotal combinations: %d\n", count);
+        }
+        if (i < 1) {
+            break;
+        }
     }
- 
-   
-    table[0] = 1;
- 
-    // One by one consider given 3 moves and update the
-    // table[] values after the index greater than or equal
-    // to the value of the picked move
-    for (i = 6; i <= n; i++)
-        table[i] += table[i - 6];
-    for (i = 3; i <= n; i++)
-        table[i] += table[i - 3];
-    for (i = 2; i <= n; i++)
-        table[i] += table[i - 2];
-    for (i = 8; i <= n; i++)
-        table[i] += table[i - 8];
-    for (i = 7; i <= n; i++)
-        table[i] += table[i - 7];
- 
-    return table[n];
-}
- 
-// Driver program
-int main(void)
-{
-    int n;
-    printf("enter 0 or 1 to STOP\n");
-    printf("enter the NFL score: ");
-    scanf("%d", &n);
-    while(n != 0 || n != 1)
-    {
-        printf("Count for %d is %d\n", n, count(n));
-        break;
-    }
-   
-   // printf("Count for %d is %d\n", n, count(n));
- 
-    //n = 13;
-    //printf("Count for %d is %d", n, count(n));
-    //return 0;
 }
